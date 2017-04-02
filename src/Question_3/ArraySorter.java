@@ -1,4 +1,15 @@
 package Question_3;
+/*
+Add another method to ArraySorter from Blackboard chapter 3 files which does a Cocktail
+sort.
+
+A Cocktail sort is like a bubble sort, it iterates from the front to the end of the list
+bubbling the largest value to the end but also iterates from the back to the front bubbling the
+smallest element to the front.
+
+Make sure you include a test in the main to demonstrate that this method works.
+(10 marks)
+ */
 
 /**
  * A class which includes common algorithms for sorting arrays
@@ -7,6 +18,54 @@ package Question_3;
  */
 public class ArraySorter<E extends Comparable>
 {
+	// driver main method to test one of the algorithms
+	public static void main(String[] args)
+	{
+		ArraySorter<String> sorter = new ArraySorter<String>();
+		String[] list = { "cow", "fly", "dog", "bat", "fox", "cat", "eel", "ant" };
+		sorter.cocktailSort(list);
+
+		// output the results
+		for (int i = 0; i < list.length; i++)
+		{
+			System.out.print(((i > 0) ? ", " : "") + list[i]);
+		}
+		System.out.println();
+	}
+
+	public void cocktailSort(E[] list)
+	{
+		E temp;
+		boolean swapped;
+		int interations = 0;
+		do
+		{
+			swapped = false;
+
+			for (int n = 0; n < list.length-1; n++)
+			{
+				if (list[n].compareTo(list[n + 1]) > 0)
+				{
+					temp = list[n + 1];
+					list[n + 1] = list[n];
+					list[n] = temp;
+					swapped = true;
+				}
+				if ((list[list.length-1-n].compareTo(list[list.length-2-n])) < 0)
+				{
+					temp = list[list.length-2-n];
+					list[list.length-2-n] = list[list.length-1-n];
+					list[list.length-1-n] = temp;
+					swapped = true;
+				}
+			}
+			interations++;
+		}
+		while (swapped == true);
+
+		System.out.println(interations + " Iterations of the loop until it was sorted");
+	}
+
 	public void selectionSort(E[] list)
 	{
 		int indexMin; // index of least element
@@ -162,19 +221,5 @@ public class ArraySorter<E extends Comparable>
 					list[start + i] = tempList[indexRight++];
 			}
 		}
-	}
-
-	// driver main method to test one of the algorithms
-	public static void main(String[] args)
-	{
-		ArraySorter<String> sorter = new ArraySorter<String>();
-		String[] list = { "cow", "fly", "dog", "bat", "fox", "cat", "eel", "ant" };
-		sorter.quickSort(list);
-		// output the results
-		for (int i = 0; i < list.length; i++)
-		{
-			System.out.print(((i > 0) ? ", " : "") + list[i]);
-		}
-		System.out.println();
 	}
 }
