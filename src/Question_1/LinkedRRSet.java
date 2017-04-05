@@ -63,8 +63,10 @@ public class LinkedRRSet<E extends Comparable<E>> extends LinkedSet<E>
 		return false;
 	}
 
-	public void retain(E start, E end)
+	public LinkedRRSet<E> retain(E start, E end)
 	{
+		LinkedRRSet<E> removedElements = new LinkedRRSet<>();
+
 		Node<E> currentNode = firstNode;
 
 		if (start != null)
@@ -72,6 +74,7 @@ public class LinkedRRSet<E extends Comparable<E>> extends LinkedSet<E>
 			// remove everything as you go until you find the start
 			while (currentNode.next != null && start.compareTo(currentNode.next.element) >= 0)
 			{
+				removedElements.add(currentNode.element);
 				Node<E> temp = currentNode.next;
 				currentNode.next = null;
 				currentNode = temp;
@@ -83,26 +86,31 @@ public class LinkedRRSet<E extends Comparable<E>> extends LinkedSet<E>
 		if (end != null)
 		{
 			// iterate until you find the end
-			while (currentNode.next != null && end.compareTo(currentNode.next.element) >= 0)
+			while (currentNode.next != null && end.compareTo(currentNode.next.element) > 0)
 			{
 				currentNode = currentNode.next;
 			}
 
 			// remove the rest of the list
-			while (currentNode != null)
+			while (currentNode.next != null)
 			{
+				removedElements.add(currentNode.next.element);
 				Node<E> temp = currentNode.next;
 				currentNode.next = null;
 				currentNode = temp;
 			}
 		}
 
+		return removedElements;
 	}
 
-	public void remove(E start, E end)
+	public LinkedRRSet<E> remove(E start, E end)
 	{
+		LinkedRRSet<E> removedElements = new LinkedRRSet<>();
+
 		Node<E> currentNode = firstNode;
 		Node<E> linkNode = null;
+
 		if (start != null) // find the start (else just remove everything up to the end)
 		{
 			while (currentNode.next != null && start.compareTo(currentNode.next.element) > 0)
@@ -115,10 +123,11 @@ public class LinkedRRSet<E extends Comparable<E>> extends LinkedSet<E>
 
 		if (end != null) // then remove everything until you find the end
 		{
-			while (currentNode.next != null && end.compareTo(currentNode.element) >= 0)
+			while (currentNode.next != null && end.compareTo(currentNode.element) > 0)
 			{
-				Node<E> temp = currentNode.next;
-				currentNode.next = null;
+				removedElements.add(currentNode.next.element);
+				Node<E> temp = currentNode.next.next;
+				currentNode.next.next = null;
 				currentNode = temp;
 			}
 
@@ -134,20 +143,23 @@ public class LinkedRRSet<E extends Comparable<E>> extends LinkedSet<E>
 		}
 		else // remove the rest
 		{
+			// if remove everything, make sure fistNode is null
+			if (start == null && end == null)
+			{
+				removedElements.add(firstNode.element);
+				firstNode = null;
+			}
+
 			while (currentNode.next != null)
 			{
+				removedElements.add(currentNode.next.element);
 				Node<E> temp = currentNode.next;
 				currentNode.next = null;
 				currentNode = temp;
 			}
-
-			// if remove everything, make sure fistNode is null
-			if (start == null && end == null)
-			{
-				firstNode = null;
-			}
 		}
 
+		return removedElements;
 	}
 
 }

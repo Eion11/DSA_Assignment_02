@@ -40,16 +40,13 @@ public class Main_Q1
 
 		// Testing Retain
 		System.out.println("\nTesting Retain: ");
-		newSet.retain(null, null);
-		System.out.println("Retain null-null:	" + newSet);
-		newSet.retain(null, 8);
-		System.out.println("Retain null-8:		" + newSet);
-		newSet.retain(3, 8);
-		System.out.println("Retain 3-8:			" + newSet);
-		newSet.retain(5, null);
-		System.out.println("Retain 5-null:		" + newSet);
-		newSet.retain(5, 5);
-		System.out.println("Retain 5-5:			" + newSet);
+		System.out.println("														 " + newSet);
+
+		System.out.println("Retain null-null:		Removed: " + newSet.retain(null, null) + " 			New Set: " + newSet);
+		System.out.println("Retain null-8:			Removed: " + newSet.retain(null, 8) + " 		New Set: " + newSet);
+		System.out.println("Retain 3-8				Removed: " + newSet.retain(3, 8) + " 			New Set: " + newSet);
+		System.out.println("Retain 5-null:			Removed: " + newSet.retain(5, null) + " 			New Set: " + newSet);
+		System.out.println("Retain 5-5:				Removed: " + newSet.retain(5, 5) + " 			New Set: " + newSet);
 
 		// Testing Remove
 		System.out.println("\nTesting Remove: ");
@@ -58,21 +55,15 @@ public class Main_Q1
 		newSet.add(7);
 		newSet.add(8);
 		newSet.add(9);
-		System.out.println("Adding Elements:	" + newSet);
-		newSet.remove(5, 5);
-		System.out.println("Remove 5-5:			" + newSet);
-		newSet.remove(3, 7);
-		System.out.println("Remove 3-7:			" + newSet);
-		newSet.remove(null, 8);
-		System.out.println("null-8:				" + newSet);
+		System.out.println("Adding:													 " + newSet);
+		System.out.println("Remove 5-5:				Removed: " + newSet.remove(5, 5) + " 			New Set: " + newSet);
+		System.out.println("Remove 3-7:				Removed: " + newSet.remove(3, 7) + " 			New Set: " + newSet);
+		System.out.println("Remove null-8:			Removed: " + newSet.remove(null, 8) + " 			New Set: " + newSet);
 		newSet.add(8);
 		newSet.add(2);
 		newSet.add(3);
-		System.out.println("Adding Elements:	" + newSet);
-		newSet.remove(4 ,null);
-		System.out.println("Remove 4-null:		" + newSet);
-		newSet.remove(null, null);
-		System.out.println("Remove null-null:	" + newSet);
-
+		System.out.println("Adding:													 " + newSet);
+		System.out.println("Remove 4-null:			Removed: " + newSet.remove(4, null) + " 		New Set: " + newSet);
+		System.out.println("Remove null-null:		Removed: " + newSet.remove(null, null) + " 		New Set: " + newSet);
 	}
 }
